@@ -3,7 +3,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 
-
 const User = mongoose.model("users");
 
 passport.serializeUser((user, done) => {
@@ -24,18 +23,13 @@ passport.use(
       callbackURL: "/auth/google/callback",
       proxy: true
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          //we already have a a record with the given profiel ID
-          done(null, existingUser);
-        } else {
-          //we dont have one and need to add one;
-          new User({ googleId: profile.id })
-            .save()
-            .then(user => done(null, user));
-        }
-      });
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+      user = await new User({ googleId: profile.id }).save();
+      done(null, user);
     }
   )
 );
