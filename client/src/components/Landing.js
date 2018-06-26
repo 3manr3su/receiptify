@@ -4,7 +4,7 @@ const Landing = () => {
     return (
         <div style={{ textAlign: "center" }}>
             <h1>
-                Emaily!
+                Welcome to Receiptify!
             </h1>
         </div>
     );
