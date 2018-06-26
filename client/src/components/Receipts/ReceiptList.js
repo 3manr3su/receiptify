@@ -32,7 +32,7 @@ class ReceiptList extends Component {
           onClick={()=>this.props.deleteReceipt(receipt._id).then(()=>{ this.props.fetchReceipts()})
            
           }
-        >Remove Receipt</button>
+        >Delete Receipt</button>
           </div>
         </div>
       );

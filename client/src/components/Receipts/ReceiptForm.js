@@ -16,19 +16,20 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 const renderItems = ({ fields, meta: { error, submitFailed } }) => (
   <ul>
-    <li>
+    <li className="row">
       <button
         type="button"
-        className="btn light-blue"
+        className="btn col s5 light-blue left"
         onClick={() => fields.push({})}
       >
-        Add Line Item
+        Add
         <i className="material-icons left"> add </i>
       </button>
       {submitFailed && error && <span>{error}</span>}
     </li>
+    
     {fields.map((item, index) => (
-      <li key={index}>
+      <li className="row"  key={index}>
         <h5>Item {index + 1}</h5>
         <Field
           name={`${item}.name`}
@@ -45,13 +46,23 @@ const renderItems = ({ fields, meta: { error, submitFailed } }) => (
         <button
           type="button"
           title="Remove Item"
-          className="btn light-blue"
+          className="btn left col s5 light-blue"
           onClick={() => fields.remove(index)}
         >
-          Remove Item
-          <i className="material-icons left"> clear </i>
+          Del
+          <i className="material-icons left col s5 "> clear </i>
         </button>
+        
+        <button
+        type="button"
+        className="btn right col s5 light-blue"
+        onClick={() => fields.push({})}
+      >
+        Add
+        <i className="material-icons right "> add </i>
+      </button>
       </li>
+      
     ))}
   </ul>
 );
@@ -81,22 +92,22 @@ const ReceiptForm = props => {
 
       <FieldArray name="items" component={renderItems} />
 
-      <div>
+      <div className="row">
         <button
           type="submit"
           disabled={submitting}
-          className="btn right light-blue"
+          className="btn right col s5 light-blue"
         >
           Next
           <i className="material-icons right"> arrow_forward </i>
         </button>
         <button
           type="button"
-          className="btn red"
+          className="btn left col s5 red"
           disabled={pristine || submitting}
           onClick={reset}
         >
-          Clear Form
+          Clear
           <i className="material-icons left"> clear_all </i>
         </button>
       </div>

@@ -29,17 +29,17 @@ const ReceiptReview = ({ onCancel, formValues, submitReceipt, history }) => {
   });
 
   return (
-    <div>
+    <div className="row">
       <h5>Please confirm your entries</h5>
       {reviewFields}
       {listItems}
-      <button className="btn light-blue" onClick={onCancel}>
+      <button className="btn col s5 left light-blue" onClick={onCancel}>
         Back
         <i className="material-icons left">arrow_back</i>
       </button>
       <button
         onClick={() => submitReceipt(formValues, history)}
-        className="green btn-flat right white-text"
+        className="green col s7 btn right "
       >
         Submit Receipt
         <i className="material-icons right">send</i>
