@@ -115,25 +115,36 @@ const ReceiptForm = props => {
   );
 };
 function validate(values) {
-    const errors = {};
-    if (!values.vendorName) {
-      errors.vendorName = "You must provide a vendor name";
-    }
-    if (!values.date) {
-      errors.date = "You must provide a date";
-    }
-    if (!values.itemName) {
-      errors.itemName = "You must provide an item name";
-    }
-    if (!values.itemPrice) {
-      errors.itemPrice = "You must provide a value";
-    }
-    if (!values.items) {
-      errors.items = { _error: 'At least one member must be entered' };
-    }
-  
-    return errors;
+  const errors = {};
+  if (!values.vendorName) {
+    errors.vendorName = "You must provide a vendor name";
   }
+  if (!values.date) {
+    errors.date = "You must provide a date";
+  }
+
+  if (!values.items || !values.items.length) {
+    errors.items = { _error: 'Must enter at least one item' }
+  } else {
+    const itemsArrayErrors = []
+    values.items.forEach((item, itemIndex) => {
+      const itemErrors = {}
+      if (!item || !item.name) {
+        itemErrors.name= 'Must provide item name and price'
+        itemsArrayErrors[itemIndex] = itemErrors
+      }
+      if (!item|| !item.price) {
+        itemErrors.name= 'Must provide item name and price'
+        itemsArrayErrors[itemIndex] = itemErrors
+      }
+    });
+    if (itemsArrayErrors.length) {
+      errors.items = itemsArrayErrors
+    }
+  }
+  return errors;
+  }
+
 
 
 
